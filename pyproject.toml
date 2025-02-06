@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "diffusion_mem_gen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "pytest>=8.3.4",
+    "ruff>=0.9.4",
+    "scipy>=1.15.2",
+    "huggingface-hub>=0.30.2",
+    "datasets>=3.5.0",
+    "dill>=0.3.8",
+    "jupyter>=1.1.1",
+    "wandb[media]>=0.19.11",
+    "seaborn>=0.13.2",
+]
+
+[dependency-groups]
+computing = ["numpy==2.2.2", "jax[cuda12]==0.6.0", "scienceplots==2.1.1", "matplotlib>=3.10.0", "optax==0.2.4", "equinox==0.12.1", "diffusionlab==3.0.4"]
+plotting = ["numpy<2", "jax[cuda12]", "matplotlib<=3.7", "scienceplots", "webcolors<24.6.0", "tikzplotlib", "optax", "equinox", "diffusionlab>=3.0.0"]
+
+[tool.uv]
+conflicts = [
+    [
+      { group = "computing" },
+      { group = "plotting" },
+    ],
+]
+default-groups = ["computing"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/diffusion_mem_gen"]
